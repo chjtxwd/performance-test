@@ -1,0 +1,21 @@
+name: 'get-har'
+description: 'Test and get har file from browsertime'
+inputs:
+  URL:  # id of input
+    description: 'URL'
+    required: true
+  browser:
+    description: 'Specify browser'
+    required: false
+    default: 'chrome'
+  iterations:
+    description: 'iterations'
+    required: false
+    default: '1'
+    
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node20'
+  main: 'index.js'
