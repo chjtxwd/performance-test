@@ -29188,6 +29188,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 491:
+/***/ ((module) => {
+
+module.exports = eval("require")("node-fetch");
+
+
+/***/ }),
+
 /***/ 9491:
 /***/ ((module) => {
 
@@ -31080,12 +31088,34 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(5886);
 const github = __nccwpck_require__(506);
+const fetch = __nccwpck_require__(491);
+
 
 try {
   // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
+  const URL = core.getInput('URL');
+  const browser = core.getInput('browser');
+  const iterations = core.getInput('iterations');
   const time = (new Date()).toTimeString();
+  const url = 'https://performance.haijin666.top/create_job';
+  const data = {
+    parameters: [URL, "-b", browser, "-n", iterations]
+  };
+  
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
   core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
