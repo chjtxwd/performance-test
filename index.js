@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const fetch = require('node-fetch').default;
-
+const axios = require('axios');
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -14,16 +13,13 @@ try {
     parameters: [URL, "-b", browser, "-n", iterations]
   };
   
-  fetch(url, {
-    method: 'POST',
+  axios.post(url, data, {
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
+    }
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
+  .then(response => {
+    console.log(response.data);
   })
   .catch(error => {
     console.error('Error:', error);
